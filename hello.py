@@ -10,16 +10,16 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+from LineAlpha.LineThrift.ttypes import Message
+from LineAlpha.LineThrift.TalkService import Client
+import time, datetime, random ,sys, re, string, os, json
+
 app = Flask(__name__)
 
 channel_access_token = 'xz/JtdLRqBocv4PpYboi0a0RnXv3vpurJW9ElUuaHPpT8DFAflJK1Fpwc4cy0Unl94BXTdCmVaWYB9g8v8G8hNeci/Kr45J3a9m7kHsbeXYGbmiDQltRp5dsLJj7aNr34uhp/iWf+B+fI4SUvFcd+AdB04t89/1O/w1cDnyilFU='
 channel_secret = 'd0aa00b32ee8cb491e52dd801b86e041'
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
-
-from LineAlpha.LineThrift.ttypes import Message
-from LineAlpha.LineThrift.TalkService import Client
-import time, datetime, random ,sys, re, string, os, json
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
