@@ -26,8 +26,23 @@ handler = WebhookHandler(channel_secret)
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+client = LineClient()
+client._qrLogin("line://au/q/")
+
 profile, setting, tracer = client.getProfile(), client.getSettings(), LineTracer(client)
 offbot, messageReq, wordsArray, waitingAnswer = [], {}, {}, {}
+
+print client._loginresult()
+
+wait = {
+    'readPoint':{},
+    'readMember':{},
+    'setTime':{},
+    'ROM':{},
+}
+
+setTime = {}
+setTime = wait["setTime"]
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -45,6 +60,21 @@ def callback():
         abort(400)
 
     return 'OK'
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text='hello,'+event.message.text))
+
+@handler.default()
+def default(event):
+    print(event)
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text='Currently Not Support None Text Msg'))
+    pass
+
 
 def sendMessage(to, text, contentMetadata={}, contentType=0):
     mes = Message()
