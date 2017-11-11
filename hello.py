@@ -17,6 +17,15 @@ channel_secret = 'd0aa00b32ee8cb491e52dd801b86e041'
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 
+from LineAlpha.LineThrift.ttypes import Message
+from LineAlpha.LineThrift.TalkService import Client
+import time, datetime, random ,sys, re, string, os, json
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+profile, setting, tracer = client.getProfile(), client.getSettings(), LineTracer(client)
+offbot, messageReq, wordsArray, waitingAnswer = [], {}, {}, {}
 
 @app.route("/callback", methods=['POST'])
 def callback():
